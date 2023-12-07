@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Data</title>
+</head>
+<body>
+
+  <h2>Update Data</h2>
+
+  <form id="updateForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email">
+
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+
+    <label for="desease">Desease:</label>
+    <input type="text" id="desease" name="desease">
+
+    <label>Treatment:</label>
+    <label>
+      <input type="checkbox" id="treatmentYes" name="treatment" value="yes">
+      Yes
+    </label>
+
+    <label>
+      <input type="checkbox" id="treatmentNo" name="treatment" value="no">
+      No
+    </label>
+
+
+    <button type="button" onclick="updateData()">Update Data</button>
+  </form>
+
+  <script>
+    function updateData() {
+      // Get the values from the form
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var gender = document.getElementById('gender').value;
+      var desease = document.getElementById('desease').value;
+      var treatmentYes = document.getElementById('treatmentYes').checked;
+      var treatmentNo = document.getElementById('treatmentNo').checked;
+
+      // Determine the subscribe value based on checkbox state
+      var treatment = treatmentYes ? 'Yes' : treatmentNo ? 'No' : '';
+
+      // Retrieve existing data from localStorage or initialize an empty array
+      var existingData = JSON.parse(localStorage.getItem('allData')) || [];
+
+      // Create an object with the updated data
+      var updatedData = { name: name, email: email, gender: gender, desease: desease, treatment: treatment };
+
+      // Add the updated data to the array
+      existingData.push(updatedData);
+
+      // Convert the array to a JSON string and store it in localStorage
+      localStorage.setItem('allData', JSON.stringify(existingData));
+
+      alert('Data updated successfully!');
+    }
+  </script>
+
+</body>
+</html>
